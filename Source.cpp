@@ -74,32 +74,32 @@ int findCol(int row) {
 
 // Sets blocked spots from a given coordinate
 void setBlockedFrom(int row, int col) {
-	//Set horizontal
+	//set horizontal
 	for (int i = 0; i < ROWSIZE; i++) {
 		blocked[i][col] = true;
 	}
 
-	//Set verticle
+	//set verticle
 	for (int i = 0; i < COLSIZE; i++) {
 		blocked[row][i] = true;
 	}
 
-	//Set Diag(top-left)
+	//set diag(up-left)
 	for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) {
 		blocked[i][j] = true;
 	}
 
-	//Set Diag(top-right)
+	//set diag(up-right)
 	for (int i = row, j = col; i < ROWSIZE && j < COLSIZE; i++, j++) {
 		blocked[i][j] = true;
 	}
 
-	//Diag(bot-left)
+	//set diag(down-left)
 	for (int i = row, j = col; i >= 0 && j < COLSIZE; i--, j++) {
 		blocked[i][j] = true;
 	}
 
-	//Set Diag(bot-right)
+	//set diag(down-right)
 	for (int i = row, j = col; i < ROWSIZE && j >= 0; i++, j--) {
 		blocked[i][j] = true;
 	}
@@ -113,7 +113,7 @@ void resetBlocked() {
 			blocked[i][j] = false;
 		}
 	}
-	//set blocked from found queen locations
+	//set blocked from queen locations
 	for (int i = 0; i < ROWSIZE; i++) {
 		for (int j = 0; j < COLSIZE; j++) {
 			if (board[i][j] == 1) {
