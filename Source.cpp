@@ -58,7 +58,6 @@ void findSolution(int row) {
 		setBlockedFrom(row, col);
 		tracks[row] = col;
 		findSolution(row + 1);
-		return;
 	}
 }
 
