@@ -38,19 +38,12 @@ void findSolution(int row) {
 	}
 	int col = findCol(row);
 	if (col == -1) {
-		//if no solution in row
-		if (row == 0) {
-			tracks[row]++;
-			clearTracksAfter(0);
-			findSolution(row);
-		}
-		else {
-			board[row - 1][tracks[row - 1]] = 0;
-			tracks[row - 1]++;
-			clearTracksAfter(row - 1);
-			resetBlocked();
-			findSolution(row - 1);
-		}
+		//if no solution in row, backtrack
+		board[row - 1][tracks[row - 1]] = 0;
+		tracks[row - 1]++;
+		clearTracksAfter(row - 1);
+		resetBlocked();
+		findSolution(row - 1);
 	} 
 	else {
 		//if solution in row found
@@ -73,32 +66,32 @@ int findCol(int row) {
 
 // Sets blocked spots from a given coordinate
 void setBlockedFrom(int row, int col) {
-	//set horizontal
+	//Set horizontal
 	for (int i = 0; i < ROWSIZE; i++) {
 		blocked[i][col] = true;
 	}
 
-	//set verticle
+	//Set verticle
 	for (int i = 0; i < COLSIZE; i++) {
 		blocked[row][i] = true;
 	}
 
-	//set diag(up-left)
+	//Set Diag(top-left)
 	for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) {
 		blocked[i][j] = true;
 	}
 
-	//set diag(up-right)
+	//Set Diag(top-right)
 	for (int i = row, j = col; i < ROWSIZE && j < COLSIZE; i++, j++) {
 		blocked[i][j] = true;
 	}
 
-	//set diag(down-left)
+	//Diag(bot-left)
 	for (int i = row, j = col; i >= 0 && j < COLSIZE; i--, j++) {
 		blocked[i][j] = true;
 	}
 
-	//set diag(down-right)
+	//Set Diag(bot-right)
 	for (int i = row, j = col; i < ROWSIZE && j >= 0; i++, j--) {
 		blocked[i][j] = true;
 	}
@@ -112,7 +105,7 @@ void resetBlocked() {
 			blocked[i][j] = false;
 		}
 	}
-	//set blocked from queen locations
+	//set blocked from found queen locations
 	for (int i = 0; i < ROWSIZE; i++) {
 		for (int j = 0; j < COLSIZE; j++) {
 			if (board[i][j] == 1) {
